@@ -3,15 +3,43 @@
 Limits used: YouTube title 100 chars, description 5,000 chars, tags 500 chars total.
 Copy each block between the lines as-is.
 
+## Real keyword data (vidIQ research, run once on "siblings be like")
+
+Source: `vidiq_keyword_research`, mode `research`, seed "siblings be like". Volume and
+competition are vidIQ's 0-100 scores (competition: lower is easier). "Est. monthly" is
+vidIQ's estimated monthly YouTube searches. Growth is search-demand change.
+
+| Keyword | Volume | Competition | Est. monthly | Growth | Use it? |
+|---|---|---|---|---|---|
+| **siblings be like** | 63 | 51 (medium) | ~17,900 | **+247%** | Yes: main phrase, in the title and first line |
+| **sis vs bro** | 75 | 46 | ~98,100 | -9% | Yes: biggest relevant phrase, in title and tags |
+| **bro vs sis** | 70 | 46 | ~50,200 | **+250%** | Yes: fast-growing; top market Japan (53%) then US |
+| **brother and sister** | 70 | 49 | ~49,800 | **+100%** | Yes: tags and keyword line |
+| older brother | 68 | 44 | ~35,300 | n/a | Yes: tags |
+| me and bro | 66 | 46 | ~24,400 | -23% | Tags only (60% Brazil) |
+| siblings | 72 | 63 | ~63,900 | +27% | Too broad and crowded (competition 63); skip as a title word |
+| sibling squad stories | 65 | **25** | ~22,300 | +24% | Low competition, but a "stories" format: not this video |
+| brother eww / brother eww meme | 72 / 63 | 42 / 25 | ~69,000 / ~15,400 | -16% / -29% | Different meme, skip |
+| the siblings, savage siblings, the savage siblings | 70-75 | 57-59 | 47k-106k | falling | Skip: these are a specific Indian channel (87-89% India) |
+| my brother texted..., teaching my sister to drive, charlie bit me | n/a | n/a | n/a | n/a | Unrelated, skip |
+
+What it says:
+- **"siblings be like" is a good main phrase**: medium competition and demand up about 247%, so the title is right.
+- **"sis vs bro" and "bro vs sis" are the big wins**: tens of thousands of monthly searches at lower competition (46) than "siblings be like" (51). They go in the title and tags.
+- Nothing here covers "tic tac toe", "ez" or "L". Those tags are guesses, not measured. Check them when your credits reset (Nov 15; each lookup costs 5).
+- "bro vs sis" implies a brother and a sister. Zack is a brother; Pip's gender isn't defined, so drop the "vs sis" terms if Pip is a brother.
+
+---
+
 ## Title options (pick one)
 
-1. siblings be like 😭 (tic-tac-toe cheat code) #shorts
-2. When your sibling cheats at tic-tac-toe 💀 pixel art animation
-3. Siblings be like: the margin X trick (ez + L) 🔥
-4. Sibling rivalry in pixel art: he WON at tic-tac-toe (then the room caught fire)
+1. siblings be like: bro vs sis tic-tac-toe 💀 #shorts
+2. sis vs bro: when your sibling cheats at tic-tac-toe 💀 pixel art
+3. siblings be like 😭 (tic-tac-toe cheat code) #shorts
+4. Bro vs sis in pixel art: he WON at tic-tac-toe (then the room caught fire)
 5. POV: your sibling "wins" tic-tac-toe by drawing an X outside the grid
 
-Recommended: **#2** for search (it matches what people type), **#1** for the Shorts feed.
+Recommended: **#1**. It has the measured main phrase ("siblings be like", +247%) plus "bro vs sis" (+250%, ~50k monthly searches). Use **#2** if you want "sis vs bro" (the biggest phrase, ~98k) up front.
 
 ---
 
@@ -64,15 +92,15 @@ Like, subscribe and share this with the sibling you would never beat at tic-tac-
 
 #siblingsbelike #shorts #pixelart
 
-Keywords: siblings be like, sibling rivalry, sibling memes, relatable sibling humor, funny sibling skits, tic-tac-toe cheating, tic tac toe meme, cheating at tic tac toe, margin X, three in a row, ez L meme, ez, L on forehead, rage quit, angry penguin, penguin in a suit, pixel art animation, pixel art short, funny pixel art, retro pixel animation, 8-bit animation, chiptune, 8-bit music, indie animation, short animated comedy, Deltarune style, RPG pixel art, game humor, gaming memes, board game rage, brother and sister, brothers be like, family humor, looping short, vertical video, YouTube Shorts, TikTok, Instagram Reels
+Keywords: siblings be like, sis vs bro, bro vs sis, brother and sister, older brother, me and bro, sibling rivalry, sibling memes, relatable sibling humor, funny sibling skits, tic-tac-toe cheating, tic tac toe meme, cheating at tic tac toe, margin X, three in a row, ez L meme, ez, L on forehead, rage quit, angry penguin, penguin in a suit, pixel art animation, pixel art short, funny pixel art, retro pixel animation, 8-bit animation, chiptune, 8-bit music, indie animation, short animated comedy, Deltarune style, RPG pixel art, game humor, gaming memes, board game rage, brother and sister, brothers be like, family humor, looping short, vertical video, YouTube Shorts, TikTok, Instagram Reels
 ```
 
 ---
 
-## Tags (YouTube, 480 chars: paste into the tags field)
+## Tags (YouTube, 465 chars: paste into the tags field)
 
 ```
-siblings be like,sibling rivalry,sibling memes,funny sibling skits,tic tac toe,tic tac toe cheating,cheating at tic tac toe,tic tac toe meme,ez,L meme,ez L,rage quit,angry penguin,penguin in a suit,pixel art,pixel art animation,funny pixel art,pixel art short,8-bit,8 bit animation,chiptune,retro animation,indie animation,animated comedy,relatable memes,brother and sister,family humor,gaming memes,board game rage,shorts,youtube shorts,looping video,satisfying loop,funny shorts
+siblings be like,sis vs bro,bro vs sis,brother and sister,older brother,me and bro,sibling rivalry,sibling memes,funny sibling skits,tic tac toe,tic tac toe cheating,cheating at tic tac toe,tic tac toe meme,ez,L meme,ez L,rage quit,angry penguin,penguin in a suit,pixel art,pixel art animation,funny pixel art,pixel art short,8-bit,chiptune,retro animation,indie animation,animated comedy,relatable memes,family humor,gaming memes,shorts,youtube shorts,funny shorts
 ```
 
 ## Hashtags
@@ -83,7 +111,7 @@ First three show above the title on YouTube, so put these at the end of the desc
 
 Full set for TikTok and Reels (use 5-8, not all):
 
-`#siblingsbelike #siblings #siblingrivalry #tictactoe #pixelart #pixelartanimation #8bit #retrogaming #funnyanimation #relatable #ez #fyp`
+`#siblingsbelike #sisvsbro #brovssis #siblings #siblingrivalry #tictactoe #pixelart #pixelartanimation #8bit #retrogaming #funnyanimation #relatable #ez #fyp`
 
 ## TikTok caption (under 150 chars)
 
