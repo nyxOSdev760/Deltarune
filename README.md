@@ -34,14 +34,15 @@ reaches into insert shots.
 | 0:01–0:04 | Paper insert: Pip (blue O) and Zack (red X) trade 5 snappy moves. Pip ends with a fork; Zack's bottom row `X X O` is blocked. | Scribbles, a pop per mark |
 | 0:04–0:06 | Wide: Pip smug. Zack close-up: hold, then his eyes slide off to the side. | Record scratch, music cuts, "heh heh", crickets |
 | 0:06–0:08.5 | Insert: Zack draws an X in the paper's **margin, in line with his two Xs**, making three in a row, and strikes the winning line through all three. Held. | Two marker strokes, swoosh, win jingle |
-| 0:08.5–0:10.5 | Zack close-up, smug, holding an **L** on his forehead. Big speech bubble: **ez**. | Voice: "ez" |
+| 0:08.5–0:10.5 | Zack close-up, smug, holding an **L** on his forehead. Big speech bubble: **ez**. | Two 8-bit talk blips, smug sting |
 | 0:10.5–0:12.5 | Pip close-up: blank stare... then furious. | Dead silence, then a boom and the rage track |
 | 0:12.5–0:15.5 | Wide: **Pip sets the room on fire.** It bursts out from him across the wall line, the table, the curtains and the floor. Zack recoils. Red tint, shake. | Rage track, whoosh, crackle |
 | 0:15.5–0:16.5 | Hard cut to the opening frame. | Playful track, picking up so the loop is seamless |
 
-Music is AI-generated and royalty-free (vidIQ), and the voice is Fish Audio
-TTS. See [`assets/audio/README.md`](assets/audio/README.md). Small sound
-effects are synthesized in `pixelshort/audio.py`.
+Music is AI-generated and royalty-free (vidIQ); see
+[`assets/audio/README.md`](assets/audio/README.md). There is no voice: small
+sound effects, including the "ez" talk blips, are synthesized in
+`pixelshort/audio.py`.
 
 ## PIP'S SUITS (24.7 s, loops, silent)
 
@@ -102,6 +103,6 @@ python3 tools/sheet.py                     # -> renders/sprite_sheet.png
 pixelshort/    engine: canvas, sprite, font, cast, shapes, backgrounds, effects, textbox, audio, encode
 scenes/        shot lists (siblings.py, suit_shop.py)
 tools/         sprite sheet exporter
-assets/audio/  music + voice (see its README for sources)
+assets/audio/  music (see its README for sources)
 renders/       output MP4 + preview images
 ```

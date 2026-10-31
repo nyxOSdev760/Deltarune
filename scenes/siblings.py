@@ -373,7 +373,6 @@ def soundtrack(path):
     tr = au.Track(SECONDS)
     playful = au.load(str(ASSETS / "music_playful_chiptune.wav"))
     rage = au.load(str(ASSETS / "music_rage_chiptune.wav"))
-    ez = au.load(str(ASSETS / "voice_zack_ez.mp3"))
 
     # -- playful music. The closing second (reset to the opening frame) plays
     #    PLAYFUL_IN..+1 s, and 0:00 picks up exactly where that leaves off, so
@@ -423,8 +422,9 @@ def soundtrack(path):
         tr.add(T(88) + 0.21, au.square(au.hz(n), 0.5, duty=0.25, vol=0.06),
                au.env(int(au.SR * 0.5), release=0.25))
 
-    # -- 0:08 "ez" (voice) + a smug little sting
-    tr.add(T(EZ_AT), ez, np.ones(len(ez), dtype="float32"), gain=1.0)
+    # -- 0:08 "ez": two 8-bit talk blips as the bubble pops, then a smug sting
+    for k, n in enumerate(("A5", "E5")):
+        tr.add(T(EZ_AT) + k * 0.11, au.square(au.hz(n), 0.07, duty=0.25, vol=0.12))
     tr.add(T(EZ_AT) + 0.9, au.square(au.hz("G5"), 0.08, duty=0.25, vol=0.06))
     tr.add(T(EZ_AT) + 1.0, au.square(au.hz("C6"), 0.18, duty=0.25, vol=0.06))
 
