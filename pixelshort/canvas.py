@@ -76,3 +76,31 @@ class Canvas:
     def upscale(self, factor=SCALE):
         """Nearest-neighbour only: each art pixel becomes a factor x factor block."""
         return np.repeat(np.repeat(self.px, factor, axis=0), factor, axis=1)
+
+
+def line_points(x0, y0, x1, y1):
+    n = int(max(abs(x1 - x0), abs(y1 - y0))) + 1
+    return [(int(round(x0 + (x1 - x0) * i / max(1, n - 1))),
+             int(round(y0 + (y1 - y0) * i / max(1, n - 1)))) for i in range(n)]
+
+
+def stroke(c, x0, y0, x1, y1, color, r=1, progress=1.0):
+    """Square-brush line, optionally only the first `progress` of it (for
+    drawing-on animation). Hard edges, no anti-aliasing."""
+    pts = line_points(x0, y0, x1, y1)
+    k = int(round(len(pts) * max(0.0, min(1.0, progress))))
+    for x, y in pts[:k]:
+        c.rect(x - r, y - r, 2 * r + 1, 2 * r + 1, color)
+
+
+def ring(c, cx, cy, r_out, r_in, color, progress=1.0, start_deg=-90):
+    """Annulus revealed clockwise from the top as progress goes 0 -> 1."""
+    import math
+    for y in range(int(cy - r_out) - 1, int(cy + r_out) + 2):
+        for x in range(int(cx - r_out) - 1, int(cx + r_out) + 2):
+            dx, dy = x + 0.5 - cx, y + 0.5 - cy
+            d2 = dx * dx + dy * dy
+            if r_in * r_in <= d2 <= r_out * r_out:
+                a = (math.degrees(math.atan2(dy, dx)) - start_deg) % 360
+                if a <= 360 * progress:
+                    c.pset(x, y, color)

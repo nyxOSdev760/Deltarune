@@ -11,12 +11,16 @@ ANIM_FPS = 12
 OUT_FPS = 24
 
 
-def encode(frames, path, out_fps=OUT_FPS, anim_fps=ANIM_FPS, scale=SCALE, crf=14):
+def encode(frames, path, out_fps=OUT_FPS, anim_fps=ANIM_FPS, scale=SCALE, crf=14, audio=None):
     hold = out_fps // anim_fps
     w, h = NATIVE_W * scale, NATIVE_H * scale
     cmd = [
         "ffmpeg", "-y", "-loglevel", "error",
         "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{w}x{h}", "-r", str(out_fps), "-i", "-",
+    ]
+    if audio:
+        cmd += ["-i", audio, "-c:a", "aac", "-b:a", "192k", "-shortest"]
+    cmd += [
         "-c:v", "libx264", "-preset", "slow", "-crf", str(crf), "-tune", "animation",
         # 6x6 art pixels on even boundaries: 4:2:0 chroma never crosses a pixel
         "-pix_fmt", "yuv420p", "-movflags", "+faststart", path,

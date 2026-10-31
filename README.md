@@ -1,21 +1,47 @@
 # Pixel shorts — Zack & Pip
 
 A tiny Python engine for vertical (9:16) pixel-art shorts in a Deltarune-like
-style, plus the first short: **PIP'S SUITS**. The style rules live in
+style, plus the shorts made with it. The style rules live in
 [`STYLE.md`](STYLE.md).
 
-![storyboard](renders/storyboard.png)
+| Short | File | Length |
+|---|---|---|
+| **siblings be like** (with audio) | `renders/siblings.mp4` | 12.0 s, loops |
+| **PIP'S SUITS** (silent) | `renders/suit_shop.mp4` | 24.7 s, loops |
 
 ## Cast
 
 | | |
 |---|---|
 | **Zack** | Dark skin, black hair, black suit, white shirt, red tie (accent). 26 px tall. 3/4 view, faces: `normal`, `blink`, `deadpan`, `happy`, `shock`. 4-frame walk, 2-pose idle. |
-| **Pip** | A penguin who is (almost) always in a suit: royal-blue jacket, yellow bow tie, orange beak and feet (accents). Faces: `normal`, `blink`, `deadpan`, `angry`. `cast.pip(suit=False)` gives him the day off. Has a large close-up sprite (`cast.pip_closeup`). |
+| **Pip** | A penguin who is (almost) always in a suit: royal-blue jacket, yellow bow tie, orange beak and feet (accents). Faces: `normal`, `blink`, `deadpan`, `smug`, `angry`. `cast.pip(suit=False)` gives him the day off. Close-up: `cast.pip_closeup("blank" / "angry")`. |
+
+Zack also has a close-up (`cast.zack_closeup`) with eyes that have whites, so a
+sideways glance reads on a phone: `normal`, `side1`, `side2`, `whistle`.
+`cast.arm("zack" | "pip", "pen" | "point")` makes a sleeve-and-hand that
+reaches into insert shots.
 
 ![sprites](renders/sprite_sheet.png)
 
-## The short (24.7 s, loops)
+## siblings be like (12 s, loops, with audio)
+
+![siblings storyboard](renders/siblings_storyboard.png)
+
+| Time | Shot | Sound |
+|---|---|---|
+| 0:00–0:01 | Wide: Zack and Pip at the table, blank tic-tac-toe on the paper. Caption "siblings be like" (stays up the whole time). | Chiptune loop, bar A |
+| 0:01–0:04 | Paper insert. Pip (blue O) and Zack (red X) trade 5 snappy moves, each pen darting in from its owner's side. Pip ends with a fork. | Scribbles, a pop per mark, bar B |
+| 0:04–0:06 | Wide: Pip smug. Cut to Zack close-up: hold, then his eyes slide off to the side and he starts whistling. | Record scratch, music stops, "heh heh", crickets, innocent whistle |
+| 0:06–0:08 | Insert: Zack draws a huge X in the paper's margin, hand-letters **WIN!** above it and points at it. Held for a full beat. | Two big marker strokes, ta-da |
+| 0:08–0:10 | Pip close-up: blank stare... then angry. Red tint fades in, shake, steam, fire rises in front. | Dead silence, then boom, rumble, angry screech, crackle |
+| 0:10–0:12 | Hard cut to the opening frame. | Music bar B, which leads straight back into bar A at 0:00 |
+
+The audio is synthesized in code (`pixelshort/audio.py`: square, triangle, sine
+and noise voices) to match the 8-bit look, and is muxed in as AAC.
+
+## PIP'S SUITS (24.7 s, loops, silent)
+
+![storyboard](renders/suit_shop_storyboard.png)
 
 1. Zack walks into Pip's suit shop.
 2. **ZACK:** "Yo! Nice tux, little guy." / **PIP:** "It is a SUIT. I sell suits."
@@ -30,9 +56,10 @@ style, plus the first short: **PIP'S SUITS**. The style rules live in
 Needs Python 3, `numpy`, `Pillow` and `ffmpeg`.
 
 ```bash
-python3 render.py                          # -> renders/suit_shop.mp4
-python3 render.py --watermark @yourname    # small corner watermark
-python3 render.py --stills 0,140,225       # also save those art frames as PNG
+python3 render.py siblings                 # -> renders/siblings.mp4 (with audio)
+python3 render.py suit_shop                # -> renders/suit_shop.mp4
+python3 render.py siblings --watermark @yourname   # small corner watermark
+python3 render.py siblings --stills 0,52,90        # also save those art frames as PNG
 python3 tools/sheet.py                     # -> renders/sprite_sheet.png
 ```
 
@@ -68,8 +95,8 @@ python3 tools/sheet.py                     # -> renders/sprite_sheet.png
 ## Layout
 
 ```
-pixelshort/    engine: canvas, sprite, font, cast, shapes, backgrounds, effects, textbox, encode
-scenes/        shot lists (suit_shop.py)
+pixelshort/    engine: canvas, sprite, font, cast, shapes, backgrounds, effects, textbox, audio, encode
+scenes/        shot lists (siblings.py, suit_shop.py)
 tools/         sprite sheet exporter
 renders/       output MP4 + preview images
 ```

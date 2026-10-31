@@ -185,6 +185,13 @@ PIP_FACES = {  # rows 6-10 (left halves)
         ".bbwwwwwoo",
         ".bbbwwwwOO",
     ],
+    "smug": [
+        ".bvbwwwwww",
+        ".bbwwwewww",
+        ".bbwweweww",
+        ".bbwwwwwoo",
+        ".bbbwwwwOO",
+    ],
     "angry": [
         ".bvbeewwww",
         ".bbwwweeww",
@@ -342,5 +349,98 @@ def pip_closeup(face="angry", w=128, h=150):
             for sy in (-1, 1):
                 G.rect(mx + (sx > 0) * 3 - (sx < 0) * 6, my + sy * 2 - (sy < 0) * 1, 5, 2, "R")
                 G.rect(mx + sx * 2 - (sx < 0) * 1, my + (sy > 0) * 3 - (sy < 0) * 6, 2, 5, "R")
+    elif face == "blank":
+        # nothing behind the eyes: two dots, beak shut
+        G.rect(44, 62, 6, 6, "e")
+        G.rect(78, 62, 6, 6, "e")
+        G.ellipse(cx, 82, 14, 5, "o")
+        G.rect(cx - 12, 83, 24, 1, "O")
     pal = dict(PIP_PAL, R="#e8404e")
     return Sprite.from_rows(G.rows(), pal)
+
+
+def zack_closeup(face="normal", w=128, h=150):
+    """Big Zack head and shoulders. Eyes have whites so a sideways glance
+    reads from across the room. Faces: normal, side1, side2, whistle."""
+    from .shapes import Grid
+    G = Grid(w, h)
+    cx = 64
+    # black suit, white shirt, red tie
+    jacket = G.ellipse_mask(cx, 132, 58, 26) | ((G.y > 132) & (abs(G.x - cx) < 58))
+    G.fill(jacket & (G.y > 104), "j")
+    G.fill(jacket & (G.y > 104) & (G.x < cx - 46), "K")
+    G.fill(jacket & (G.y > 104) & (G.x > cx + 46), "J")
+    shirt = (G.y > 106) & (abs(G.x - cx) < 18 - (G.y - 106) * 0.3)
+    G.fill(shirt, "w")
+    G.rect(cx - 4, 110, 8, 6, "R")
+    tie = (G.y > 115) & (abs(G.x - cx) < 3 + (G.y - 115) * 0.15)
+    G.fill(tie & shirt, "r")
+    G.rect(cx - 9, 100, 18, 10, "S")                     # neck
+    # ears, head, shading
+    G.ellipse(27, 70, 7, 10, "s")
+    G.ellipse(101, 70, 7, 10, "S")
+    G.ellipse(27, 70, 3, 5, "S")
+    head = G.ellipse_mask(cx, 66, 38, 42)
+    G.fill(head, "s")
+    G.fill(head & ~G.ellipse_mask(cx - 6, 61, 38, 42), "S")
+    G.ellipse(44, 52, 6, 3, "x")
+    # short black hair with a hairline and faded sides
+    hair = G.ellipse_mask(cx, 44, 42, 28) & (G.y < 44 - 0.004 * (G.x - cx) ** 2 + 6)
+    G.fill(hair, "h")
+    G.fill(hair & (G.y < 30) & (G.x < cx - 4) & (G.x > cx - 30), "H")
+    G.fill(G.ellipse_mask(cx, 44, 42, 28) & ~hair & (abs(G.x - cx) > 30) & (G.y < 60), "d")
+    G.fill(hair & ~G.ellipse_mask(cx - 4, 40, 42, 28), "d")
+    # brows
+    G.rect(38, 54, 14, 3, "h")
+    G.rect(76, 54, 14, 3, "h")
+    # eyes: whites + pupils that slide
+    look = {"normal": 0, "side1": -3, "side2": -6, "whistle": -6}[face]
+    for ex in (39, 75):
+        G.rect(ex, 62, 14, 11, "w")
+        G.rect(ex + 5 + look, 63, 5, 9, "e")
+    if face == "whistle":
+        G.ellipse(cx + 2, 88, 4, 4, "m")
+        G.ellipse(cx + 2, 88, 2, 2, "S")
+        G.rect(38, 53, 14, 3, "h")
+    else:
+        G.rect(cx - 8, 88, 16, 2, "m")
+    return Sprite.from_rows(G.rows(), ZACK_PAL)
+
+
+def arm(who="zack", tool="pen", length=120):
+    """A sleeve reaching in from the bottom corner with a pen (or pointing
+    finger) at its tip. Returns (sprite, (tip_x, tip_y)) inside the sprite.
+    Zack reaches in from the left, Pip from the right."""
+    from .shapes import Grid
+    n = length
+    G = Grid(n, n)
+    tx, ty = n - 4, 3
+
+    def at(d):
+        k = d / 1.4142
+        return tx - k, ty + k
+
+    if who == "zack":
+        sleeve, cuff, hand, pal = "j", "w", "s", ZACK_PAL
+        pen_body, pen_shade, pen_tip = "r", "R", "R"
+    else:
+        sleeve, cuff, hand, pal = "u", "w", "b", PIP_PAL
+        pen_body, pen_shade, pen_tip = "w", "U", "U"
+    G.line(*at(24), *at(n * 1.5), sleeve, r=6)
+    G.line(*at(20), *at(24), cuff, r=5)
+    if tool == "pen":
+        G.line(*at(3), *at(16), pen_body, r=1)
+        G.line(*at(3), *at(16), pen_shade, r=0)
+        G.line(*at(0), *at(3), pen_tip, r=0)
+        hx, hy = at(15)
+        G.ellipse(hx, hy, 5, 5, hand)
+    else:  # pointing
+        G.line(*at(0), *at(9), hand, r=1)
+        hx, hy = at(14)
+        G.ellipse(hx, hy, 6, 6, hand)
+    rows = G.rows()
+    if who != "zack":
+        rows = [r[::-1] for r in rows]
+        tx = n - 1 - tx
+    s = Sprite.from_rows(rows, pal)
+    return s, (tx + 1, ty + 1)   # +1 for the outline border

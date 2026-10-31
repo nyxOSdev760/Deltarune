@@ -167,3 +167,105 @@ def sparkles(c, frame, seed=7, count=34):
                     c.pset(x + dx, y + dy, SPARK_DIM)
         elif t in (2, 3):
             c.pset(x, y, SPARK_DIM)
+
+
+# ---- home: living room with a table -----------------------------------------
+STRIPE = H("#9a5632")
+WINDOW = H("#34407e")
+WINDOW_HI = H("#4c5ca0")
+CURTAIN = H("#c8603a")
+CURTAIN_D = H("#a64a2c")
+TABLE_TOP = H("#c88450")
+TABLE_HI = H("#e0a066")
+TABLE_GRAIN = H("#b87444")
+TABLE_FRONT = H("#86482a")
+CHAIR = H("#5c301e")
+PAPER = H("#f4efe0")
+PAPER_RULE = H("#bccce4")
+PAPER_MARGIN = H("#ec8a8a")
+PENCIL = H("#55546a")
+
+TABLE_Y = 160
+
+
+def home():
+    c = Canvas(fill=WALL)
+    c.rect(0, 0, c.w, 30, CEIL)
+    for x in range(6, c.w, 24):
+        c.rect(x, 0, 4, 30, CEIL_BEAM)
+    c.hline(0, 30, c.w, RAIL)
+    for x in range(0, c.w, 12):           # wallpaper stripes (tiled)
+        c.rect(x, 31, 6, 97, STRIPE)
+    c.rect(0, 128, c.w, FLOOR_Y - 128, WAIN)
+    for x in range(0, c.w, 16):
+        c.rect(x + 2, 132, 12, FLOOR_Y - 136, WAIN_HI)
+        c.rect(x + 3, 133, 10, FLOOR_Y - 138, WAIN)
+    c.rect(0, 126, c.w, 3, RAIL)
+    c.rect(0, FLOOR_Y, c.w, c.h - FLOOR_Y, FLOOR)
+    for y in range(FLOOR_Y + 6, c.h, 8):
+        c.hline(0, y, c.w, FLOOR_LINE)
+        off = 0 if (y // 8) % 2 else 14
+        for x in range(off, c.w, 28):
+            c.vline(x, y - 7, 7, FLOOR_LINE)
+    _diamond_rug(c, 6, 236, 168, 36)
+    # window with curtains
+    c.rect(64, 60, 52, 46, DOOR_FRAME)
+    c.rect(67, 63, 46, 40, WINDOW)
+    c.vline(89, 63, 40, DOOR_FRAME)
+    c.vline(90, 63, 40, DOOR_FRAME)
+    c.hline(67, 82, 46, DOOR_FRAME)
+    for i in range(6):
+        c.pset(72 + i, 78 - i, WINDOW_HI)
+        c.pset(95 + i, 78 - i, WINDOW_HI)
+    c.rect(58, 56, 64, 3, RAIL)
+    c.rect(58, 59, 9, 52, CURTAIN)
+    c.rect(113, 59, 9, 52, CURTAIN)
+    c.vline(61, 59, 52, CURTAIN_D)
+    c.vline(117, 59, 52, CURTAIN_D)
+    # family photo (left) and clock (right)
+    c.rect(16, 70, 24, 20, DOOR_FRAME)
+    c.rect(18, 72, 20, 16, H("#e8d8b0"))
+    c.rect(21, 78, 5, 10, H("#2e2c3c"))
+    c.rect(22, 75, 4, 4, H("#8a5638"))
+    c.rect(30, 79, 6, 9, H("#3a5ad0"))
+    c.rect(30, 76, 6, 4, H("#2a2c48"))
+    c.rect(146, 66, 16, 16, DOOR_FRAME)
+    c.rect(148, 68, 12, 12, H("#f2e4c0"))
+    c.vline(154, 70, 5, DOOR_FRAME)
+    c.hline(154, 74, 4, DOOR_FRAME)
+    return c
+
+
+def chair_back(c, cx):
+    c.rect(cx - 12, 136, 3, 26, CHAIR)
+    c.rect(cx + 9, 136, 3, 26, CHAIR)
+    c.rect(cx - 12, 136, 24, 3, CHAIR)
+    c.rect(cx - 12, 144, 24, 2, CHAIR)
+
+
+def table(c):
+    """Drawn over the characters: they sit behind it, cut at the chest."""
+    c.rect(10, TABLE_Y, 160, 30, TABLE_TOP)
+    c.hline(10, TABLE_Y, 160, TABLE_HI)
+    for y in (TABLE_Y + 9, TABLE_Y + 20):
+        for x in range(14, 166, 22):
+            c.hline(x, y, 12, TABLE_GRAIN)
+    c.rect(10, TABLE_Y + 30, 160, 14, TABLE_FRONT)
+    c.hline(10, TABLE_Y + 30, 160, DOOR_FRAME)
+    c.rect(14, TABLE_Y + 44, 6, 22, TABLE_FRONT)
+    c.rect(160, TABLE_Y + 44, 6, 22, TABLE_FRONT)
+    c.vline(10, TABLE_Y, 44, DOOR_FRAME)
+    c.vline(169, TABLE_Y, 44, DOOR_FRAME)
+    c.hline(10, TABLE_Y + 43, 160, DOOR_FRAME)
+
+
+def table_top_closeup():
+    """Top-down wood for the paper insert shots (larger planks = closer)."""
+    c = Canvas(fill=TABLE_TOP)
+    for y in range(0, c.h, 22):
+        c.hline(0, y, c.w, TABLE_GRAIN)
+        for x in range((y // 22) % 2 * 40, c.w, 80):
+            c.vline(x, y, 22, TABLE_GRAIN)
+        for x in range(10 + (y * 7) % 50, c.w, 60):
+            c.hline(x, y + 9, 18, TABLE_HI)
+    return c
