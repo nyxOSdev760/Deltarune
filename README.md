@@ -17,27 +17,31 @@ style, plus the shorts made with it. The style rules live in
 | **Pip** | A penguin who is (almost) always in a suit: royal-blue jacket, yellow bow tie, orange beak and feet (accents). Faces: `normal`, `blink`, `deadpan`, `smug`, `angry`. `cast.pip(suit=False)` gives him the day off. Close-up: `cast.pip_closeup("blank" / "angry")`. |
 
 Zack also has a close-up (`cast.zack_closeup`) with eyes that have whites, so a
-sideways glance reads on a phone: `normal`, `side1`, `side2`, `whistle`.
+sideways glance reads on a phone: `normal`, `side1`, `side2`, `whistle`, `smug`.
+`cast.zack_l_hand()` overlays the "L" on his forehead.
 `cast.arm("zack" | "pip", "pen" | "point")` makes a sleeve-and-hand that
 reaches into insert shots.
 
 ![sprites](renders/sprite_sheet.png)
 
-## siblings be like (12 s, loops, with audio)
+## siblings be like (16.5 s, loops, with audio)
 
 ![siblings storyboard](renders/siblings_storyboard.png)
 
 | Time | Shot | Sound |
 |---|---|---|
-| 0:00–0:01 | Wide: Zack and Pip at the table, blank tic-tac-toe on the paper. Caption "siblings be like" (stays up the whole time). | Chiptune loop, bar A |
-| 0:01–0:04 | Paper insert. Pip (blue O) and Zack (red X) trade 5 snappy moves, each pen darting in from its owner's side. Pip ends with a fork. | Scribbles, a pop per mark, bar B |
-| 0:04–0:06 | Wide: Pip smug. Cut to Zack close-up: hold, then his eyes slide off to the side and he starts whistling. | Record scratch, music stops, "heh heh", crickets, innocent whistle |
-| 0:06–0:08 | Insert: Zack draws a huge X in the paper's margin, hand-letters **WIN!** above it and points at it. Held for a full beat. | Two big marker strokes, ta-da |
-| 0:08–0:10 | Pip close-up: blank stare... then angry. Red tint fades in, shake, steam, fire rises in front. | Dead silence, then boom, rumble, angry screech, crackle |
-| 0:10–0:12 | Hard cut to the opening frame. | Music bar B, which leads straight back into bar A at 0:00 |
+| 0:00–0:01 | Wide: Zack and Pip at the table, blank tic-tac-toe. Caption "siblings be like" (stays up the whole time). | Playful chiptune |
+| 0:01–0:04 | Paper insert: Pip (blue O) and Zack (red X) trade 5 snappy moves. Pip ends with a fork; Zack's bottom row `X X O` is blocked. | Scribbles, a pop per mark |
+| 0:04–0:06 | Wide: Pip smug. Zack close-up: hold, then his eyes slide off to the side. | Record scratch, music cuts, "heh heh", crickets |
+| 0:06–0:08.5 | Insert: Zack draws an X in the paper's **margin, in line with his two Xs**, making three in a row, and strikes the winning line through all three. Held. | Two marker strokes, swoosh, win jingle |
+| 0:08.5–0:10.5 | Zack close-up, smug, holding an **L** on his forehead. Big speech bubble: **ez**. | Voice: "ez" |
+| 0:10.5–0:12.5 | Pip close-up: blank stare... then furious. | Dead silence, then a boom and the rage track |
+| 0:12.5–0:15.5 | Wide: **Pip sets the room on fire.** It bursts out from him across the wall line, the table, the curtains and the floor. Zack recoils. Red tint, shake. | Rage track, whoosh, crackle |
+| 0:15.5–0:16.5 | Hard cut to the opening frame. | Playful track, picking up so the loop is seamless |
 
-The audio is synthesized in code (`pixelshort/audio.py`: square, triangle, sine
-and noise voices) to match the 8-bit look, and is muxed in as AAC.
+Music is AI-generated and royalty-free (vidIQ), and the voice is Fish Audio
+TTS. See [`assets/audio/README.md`](assets/audio/README.md). Small sound
+effects are synthesized in `pixelshort/audio.py`.
 
 ## PIP'S SUITS (24.7 s, loops, silent)
 
@@ -98,5 +102,6 @@ python3 tools/sheet.py                     # -> renders/sprite_sheet.png
 pixelshort/    engine: canvas, sprite, font, cast, shapes, backgrounds, effects, textbox, audio, encode
 scenes/        shot lists (siblings.py, suit_shop.py)
 tools/         sprite sheet exporter
+assets/audio/  music + voice (see its README for sources)
 renders/       output MP4 + preview images
 ```

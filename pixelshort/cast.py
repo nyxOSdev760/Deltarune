@@ -361,7 +361,8 @@ def pip_closeup(face="angry", w=128, h=150):
 
 def zack_closeup(face="normal", w=128, h=150):
     """Big Zack head and shoulders. Eyes have whites so a sideways glance
-    reads from across the room. Faces: normal, side1, side2, whistle."""
+    reads from across the room. Faces: normal, side1, side2, whistle, smug.
+    Pair "smug" with zack_l_hand() for the L on the forehead."""
     from .shapes import Grid
     G = Grid(w, h)
     cx = 64
@@ -394,11 +395,19 @@ def zack_closeup(face="normal", w=128, h=150):
     G.rect(38, 54, 14, 3, "h")
     G.rect(76, 54, 14, 3, "h")
     # eyes: whites + pupils that slide
-    look = {"normal": 0, "side1": -3, "side2": -6, "whistle": -6}[face]
+    look = {"normal": 0, "side1": -3, "side2": -6, "whistle": -6, "smug": 4}[face]
     for ex in (39, 75):
         G.rect(ex, 62, 14, 11, "w")
         G.rect(ex + 5 + look, 63, 5, 9, "e")
-    if face == "whistle":
+        if face == "smug":                       # heavy half-closed lids
+            G.rect(ex - 1, 61, 16, 5, "S")
+            G.rect(ex - 1, 65, 16, 1, "m")
+    if face == "smug":
+        G.rect(38, 56, 14, 3, "h")               # brows relaxed, lower
+        G.rect(76, 55, 14, 3, "h")
+        G.rect(cx - 6, 89, 13, 2, "m")           # one-sided smirk
+        G.rect(cx + 6, 86, 3, 3, "m")
+    elif face == "whistle":
         G.ellipse(cx + 2, 88, 4, 4, "m")
         G.ellipse(cx + 2, 88, 2, 2, "S")
         G.rect(38, 53, 14, 3, "h")
@@ -444,3 +453,25 @@ def arm(who="zack", tool="pen", length=120):
         tx = n - 1 - tx
     s = Sprite.from_rows(rows, pal)
     return s, (tx + 1, ty + 1)   # +1 for the outline border
+
+
+def zack_l_hand(w=128, h=240):
+    """Zack's arm making an "L" on his forehead: index finger straight up,
+    thumb out. A separate sprite (blit at the close-up's origin) so it gets
+    its own dark outline where it crosses his face."""
+    from .shapes import Grid
+    G = Grid(w, h)
+    G.line(-8, 160, 24, 70, "j", r=8)        # sleeve from off-frame
+    G.line(-8, 160, 18, 84, "K", r=2)
+    G.line(24, 70, 29, 60, "w", r=7)         # cuff
+    G.ellipse(36, 50, 10, 9, "s")            # back of the hand
+    G.ellipse(33, 47, 5, 4, "x")
+    G.rect(29, 4, 8, 46, "s")                # index finger: the tall stroke
+    G.rect(29, 4, 3, 46, "x")
+    G.rect(29, 24, 8, 1, "S")                # knuckle creases
+    G.rect(29, 36, 8, 1, "S")
+    G.rect(40, 50, 30, 8, "s")               # thumb: the foot of the L
+    G.rect(40, 50, 30, 3, "x")
+    G.rect(56, 50, 1, 8, "S")
+    G.rect(30, 58, 14, 2, "S")               # curled fingers under the palm
+    return Sprite.from_rows(G.rows(), ZACK_PAL)

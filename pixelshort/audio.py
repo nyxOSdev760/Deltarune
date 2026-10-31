@@ -69,14 +69,35 @@ def noise(dur, vol=0.2, seed=0, lowpass=None):
     return x * vol
 
 
+def load(path, sr=SR):
+    """Decode any audio file (wav/mp3/ogg) to mono float32 via ffmpeg."""
+    import subprocess
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", path, "-ac", "1", "-ar", str(sr),
+                          "-f", "f32le", "-"], check=True, capture_output=True).stdout
+    return np.frombuffer(raw, dtype="<f4").copy()
+
+
+def clip(x, start, dur, fade_in=0.0, fade_out=0.05):
+    """Cut [start, start+dur] seconds out of a loaded track with short fades."""
+    s = x[int(start * SR):int((start + dur) * SR)].copy()
+    if fade_in:
+        n = min(len(s), int(fade_in * SR))
+        s[:n] *= np.linspace(0, 1, n)
+    if fade_out:
+        n = min(len(s), int(fade_out * SR))
+        s[-n:] *= np.linspace(1, 0, n)
+    return s
+
+
 class Track:
     def __init__(self, seconds):
         self.buf = np.zeros(int(SR * seconds) + SR, dtype=np.float32)
         self.seconds = seconds
 
-    def add(self, t, samples, e=None):
+    def add(self, t, samples, e=None, gain=1.0):
         if e is None:
             e = env(len(samples))
+        e = e * gain
         i = int(t * SR)
         if i >= len(self.buf):
             return
