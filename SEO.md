@@ -18,9 +18,10 @@ look it up from here, so check it when you create the channel.
 Zack & Pip: tiny pixel-art shorts about sibling fights, cheating at games and rooms that end up on fire. New shorts, same two characters, all in a retro 8-bit RPG style. siblings be like, sis vs bro, bro vs sis, funny pixel art animation. Zack is smug. Pip is a penguin in a suit with zero patience. Subscribe so you're there when the next room burns. 🔥
 ```
 
-**Profile picture:** `renders/channel_pfp.png` (896x896). Zack (smug) and Pip (angry) with fire along the bottom.
-`renders/channel_pfp_circle_preview.png` shows how the circular crop looks. The faces sit in the
-middle so nothing important gets cut. Rebuild with `python3 tools/pfp.py`.
+**Profile picture:** `renders/channel_pfp.png` (864x864). Pip, big and angry, on a bright halo.
+One character and one bold silhouette, because avatars are shown tiny. It was checked at 96, 48
+and 32 px. `renders/channel_pfp_circle_preview.png` shows the circular crop. Rebuild with
+`python3 tools/pfp.py`.
 
 ---
 

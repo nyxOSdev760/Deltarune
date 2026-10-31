@@ -1,36 +1,36 @@
-"""Channel profile picture: Zack (smug) and Pip (angry), fire at the bottom.
+"""Channel profile picture v2: Pip alone, big, on a glowing halo.
 
-224x224 native, upscaled x4 with nearest-neighbour -> 896x896 PNG. Platforms
-show avatars in a circle, so the faces are kept near the centre and a circle-
-masked preview is written next to it.
+Avatars are shown tiny and in a circle, so: one character, one bold silhouette,
+high contrast, centred. 144x144 native, x6 nearest-neighbour -> 864x864.
 """
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import numpy as np
 from PIL import Image
-from pixelshort import Canvas, cast, backgrounds as bg, effects as fx
+from pixelshort import Canvas, cast, backgrounds as bg
+from pixelshort.canvas import hex_rgb as H
 
-N, SC = 224, 4
+N, SC = 144, 6
+VOID = H("#150c2c")
 
 
-def build(frame=0):
-    c = Canvas(N, N, fill=bg.WALL)
-    for x in range(10, N, 30):                       # same wall panels as the shorts
-        c.rect(x, 0, 2, N, bg.WALL_LINE)
-        c.rect(x + 2, 0, 1, N, bg.WALL_HI)
-    zack = cast.zack_closeup("smug", h=184)
-    pip = cast.pip_closeup("angry", h=184)
-    c.blit(zack, 2, 40)
-    c.blit(pip, 94, 40)
-    # fire in front, drawn on a key-colour layer so stray embers can be kept
-    # off the faces: only the bottom band is composited
-    key = (255, 0, 255)
-    layer = Canvas(N, N, fill=key)
-    fx.fire_row(layer, frame, floor_y=214, height=0.7, spacing=9, seed=5)
-    band = layer.px[184:]
-    keep = ~np.all(band == key, axis=-1)
-    c.px[184:][keep] = band[keep]
+def build():
+    c = Canvas(N, N, fill=VOID)
+    cx, cy = N / 2, 70
+    yy, xx = np.mgrid[0:N, 0:N]
+    d = np.sqrt((xx + 0.5 - cx) ** 2 + (yy + 0.5 - cy) ** 2)
+    # flat concentric halo rings: no gradients, hard steps
+    for r, col in ((80, "#232066"), (66, "#3a52b4"), (56, "#7a9cf0")):
+        c.px[d <= r] = H(col)
+    # single-pixel sparkles
+    for x, y in ((14, 20), (126, 14), (24, 104), (122, 96), (70, 8), (8, 62), (136, 56), (104, 30), (40, 34)):
+        c.pset(x, y, bg.SPARK)
+        if (x + y) % 3 == 0:
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                c.pset(x + dx, y + dy, bg.SPARK_DIM)
+    pip = cast.pip_closeup("angry", h=N - 12)
+    c.blit(pip, (N - pip.w) // 2, 12)
     return c
 
 
@@ -38,13 +38,19 @@ def main(out="renders/channel_pfp.png"):
     c = build()
     img = Image.fromarray(c.upscale(SC))
     img.save(out)
-    # circle preview (what the platform shows)
     px = np.asarray(img).copy()
     yy, xx = np.mgrid[0:px.shape[0], 0:px.shape[1]]
     r = px.shape[0] / 2
-    outside = (xx + 0.5 - r) ** 2 + (yy + 0.5 - r) ** 2 > r * r
-    px[outside] = (20, 14, 40)
-    Image.fromarray(px).save(out.replace(".png", "_circle_preview.png"))
+    px[(xx + 0.5 - r) ** 2 + (yy + 0.5 - r) ** 2 > r * r] = (20, 14, 40)
+    circ = Image.fromarray(px)
+    circ.save(out.replace(".png", "_circle_preview.png"))
+    # what it looks like at real avatar sizes (for checking only)
+    strip = Image.new("RGB", (96 + 48 + 32 + 40, 100), (30, 30, 36))
+    x = 10
+    for s in (96, 48, 32):
+        strip.paste(circ.resize((s, s), Image.LANCZOS), (x, (100 - s) // 2))
+        x += s + 10
+    strip.resize((strip.width * 3, strip.height * 3), Image.NEAREST).save("/tmp/pfp_small.png")
     print(out, img.size)
 
 
