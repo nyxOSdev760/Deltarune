@@ -3,6 +3,27 @@
 Limits used: YouTube title 100 chars, description 5,000 chars, tags 500 chars total.
 Copy each block between the lines as-is.
 
+## Channel name and profile picture
+
+**Name: Zack & Pip** (handle to try: `@zackandpip`, then `@zackandpipshorts`, `@zack_and_pip`)
+
+Why: the two characters are the brand, so every future short has a name viewers can search for.
+It is short, fits on a phone, and doesn't use any game's name. Alternatives: **Pixel Siblings**,
+**Pip's Suits**, **Sibling Fights**. Handle availability is **not checked**: I have no way to
+look it up from here, so check it when you create the channel.
+
+**Channel description (paste in About):**
+
+```
+Zack & Pip: tiny pixel-art shorts about sibling fights, cheating at games and rooms that end up on fire. New shorts, same two characters, all in a retro 8-bit RPG style. siblings be like, sis vs bro, bro vs sis, funny pixel art animation. Zack is smug. Pip is a penguin in a suit with zero patience. Subscribe so you're there when the next room burns. 🔥
+```
+
+**Profile picture:** `renders/channel_pfp.png` (896x896). Zack (smug) and Pip (angry) with fire along the bottom.
+`renders/channel_pfp_circle_preview.png` shows how the circular crop looks. The faces sit in the
+middle so nothing important gets cut. Rebuild with `python3 tools/pfp.py`.
+
+---
+
 ## Real keyword data (vidIQ research, run once on "siblings be like")
 
 Source: `vidiq_keyword_research`, mode `research`, seed "siblings be like". Volume and
